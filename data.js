@@ -4,66 +4,79 @@
 */
 const ranks = [
   {
+    rank: 0,
     name: "2",
     fullName: "Two",
     value: 2,
   },
   {
+    rank: 1,
     name: "3",
     fullName: "Three",
     value: 3,
   },
   {
+    rank: 2,
     name: "4",
     fullName: "Four",
     value: 4,
   },
   {
+    rank: 3,
     name: "5",
     fullName: "Five",
     value: 5,
   },
   {
+    rank: 4,
     name: "6",
     fullName: "Six",
     value: 6,
   },
   {
+    rank: 5,
     name: "7",
     fullName: "Seven",
     value: 7,
   },
   {
+    rank: 6,
     name: "8",
     fullName: "Eight",
     value: 8,
   },
   {
+    rank: 7,
     name: "9",
     fullName: "Nine",
     value: 9,
   },
   {
+    rank: 8,
     name: "10",
     fullName: "Ten",
     value: 10,
   },
   {
+    rank: 9,
     name: "Jack",
     fullName: "Jack",
     value: 11,
   },
   {
+    rank: 10,
     name: "Queen",
     fullName: "Queen",
     value: 12,
   },
   {
+    rank: 11,
     name: "King",
     fullName: "King",
     value: 13,
   },
   {
+    rank: 12,
     name: "Ace",
     fullName: "Ace",
     value: 11,
@@ -76,11 +89,16 @@ function generateStandardFullDeck() {
   let output = [];
   for (let suit of suits) {
     for (let rank of ranks) {
-      let card = {
+      /*let card = {
         ...rank,
         suit: suit,
-        img: `img/${rank.name.toLowerCase()}_of_${suit.toLowerCase()}`,
-      };
+        imgSrc: `img/${rank.name.toLowerCase()}_of_${suit.toLowerCase()}.png`,
+      };*/
+      let card = new Card(
+        rank.rank,
+        suit,
+        `img/${rank.name.toLowerCase()}_of_${suit.toLowerCase()}.png`
+      );
       output.push(card);
     }
   }

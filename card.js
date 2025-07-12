@@ -1,7 +1,7 @@
 class Card {
-  constructor(rank, suit, img) {
+  constructor(rank, suit, imgSrc) {
     this.rank = rank;
     this.suit = suit;
-    this.img = img;
+    this.imgSrc = imgSrc;
   }
 }
