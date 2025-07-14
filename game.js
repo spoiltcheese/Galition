@@ -13,6 +13,10 @@ function init() {
     document.querySelector("#playArea").replaceChildren();
     console.log("cards in hand " + cardsInHand);
     fillHand(cardsInHand);
+
+    handValue = 0;
+    document.querySelector("#pokerHandType").innerHTML = "";
+    selectedCardsID = [];
   });
   shuffle();
 }

@@ -38,13 +38,24 @@ function checkTwoPair(cards) {
     countArr.push(count);
   }
 
+  console.log(countArr);
+
   const occurrenceMap = countArr.reduce((map, item) => {
     map.set(item, (map.get(item) || 0) + 1);
     return map;
   }, new Map());
 
-  for (const count of occurrenceMap.values()) {
-    if (count === 2) return true;
+  console.log("occurence map of two pair");
+  console.log(occurrenceMap);
+
+  let has1Pair = true;
+
+  for (const value of occurrenceMap) {
+    if (value === 2) {
+      has1Pair = true;
+      console.log(has1Pair);
+      occurrenceMap.delete(index);
+    }
   }
 
   return false;
@@ -102,13 +113,7 @@ function unitTests() {
 
   console.log(checkFullHouse([1, 2, 2, 2, 1]));
 
-  console.log("Two pair: " + checkTwoPair([1, 2, 2, 3, 1]));
-
-  console.log("Two pair: " + checkTwoPair([1, 2, 5, 3, 1]));
-  */
-
-  console.log(checkStraight([1, 2, 3, 4, 5]));
-  console.log(checkFlush(["Spade", "Spade", "Spade", "Spade", "Spade"]));
+  console.log("Two pair: " + checkTwoPair([1, 2, 2, 3, 1]));  */
 }
 
 unitTests();
