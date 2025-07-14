@@ -39,14 +39,13 @@ function checkTwoPair(cards) {
 
   let numberOfPairs = 0;
   for (const count of countMap.values()) {
-    if (count >= 2) {
-      // A rank with 2 or more cards means it can form at least one pair
+    if (count == 2) {
       numberOfPairs++;
     }
   }
 
-  console.log("numberofpairs:" + numberOfPairs);
-  // If you found at least two distinct ranks that each have a count of 2 or more,
+  //console.log("numberofpairs:" + numberOfPairs);
+  // If you found at least two distinct ranks that each have a count of 2,
   // then you have two pair.
   return numberOfPairs >= 2;
 }
