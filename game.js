@@ -98,22 +98,22 @@ function fillHand(cardsAlreadyInside) {
     handArr[i].style.paddingRight = "10px";
     handArr[i].addEventListener("click", (event) => {
       let idStr = event.target.id;
-      if (!selectedCardsID.some((id) => id === idStr)) {
-        console.log(typeof idStr);
-        console.log(idStr);
-        console.log(document.querySelector("#" + idStr));
-        document
-          .querySelector("#playArea")
-          .appendChild(document.querySelector("#" + idStr));
+      let id = idStr.split("c")[1];
+      let currentCard = document.querySelector("#" + idStr);
+      if (!selectedCardsID.some((x) => x === id)) {
+        console.log("CARD NOT FOUND");
+        console.log(currentCard);
+        document.querySelector("#playArea").appendChild(currentCard);
 
-        let id = idStr.split("c")[1];
         selectedCardsID.push(id);
         handArr.splice(handArr.indexOf(id));
         cardsInHand--;
         getPokerHand();
       } else {
-        document.querySelector("#hand").appendChild(handArr[i]);
-        selectedCardsID.splice(selectedCardsID.indexOf(handArr[i].id), 1);
+        console.log("CARD FOUND");
+        console.log(currentCard);
+        document.querySelector("#hand").appendChild(currentCard);
+        selectedCardsID.splice(selectedCardsID.indexOf(id), 1);
         cardsInHand++;
         getPokerHand();
       }
