@@ -99,8 +99,21 @@ function generateStandardFullDeck() {
     }
   }
 
-  console.dir(output);
+  //console.dir(output);
   return output;
 }
 
 const standardFullDeck = generateStandardFullDeck();
+
+const pokerHands = [
+  "High card",
+  "Pair",
+  "Two Pairs",
+  "Three of a Kind",
+  "Straight",
+  "Flush",
+  "Full House",
+  "Four of a Kind",
+  "Straight Flush",
+  "Royal Flush",
+];

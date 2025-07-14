@@ -69,7 +69,29 @@ function checkFullHouse(cards) {
   }
 }
 
+function checkStraight(cards) {
+  if (cards.length !== 5) return false;
+  else {
+    if (
+      parseInt(cards[0] + 1) === parseInt(cards[1]) &&
+      parseInt(cards[1] + 1) === parseInt(cards[2]) &&
+      parseInt(cards[2] + 1) === parseInt(cards[3]) &&
+      parseInt(cards[3] + 1) === parseInt(cards[4])
+    ) {
+      return true;
+    } else return false;
+  }
+}
+
+function checkFlush(cards) {
+  if (cards.length !== 5) return false;
+  else {
+    return cards.every((val) => val === cards[0]);
+  }
+}
+
 function unitTests() {
+  /*
   console.log(checkAlikeCards([1, 1, 2]));
 
   console.log(checkAlikeCards([1, 2, 2, 2, 3]));
@@ -83,6 +105,10 @@ function unitTests() {
   console.log("Two pair: " + checkTwoPair([1, 2, 2, 3, 1]));
 
   console.log("Two pair: " + checkTwoPair([1, 2, 5, 3, 1]));
+  */
+
+  console.log(checkStraight([1, 2, 3, 4, 5]));
+  console.log(checkFlush(["Spade", "Spade", "Spade", "Spade", "Spade"]));
 }
 
 unitTests();
