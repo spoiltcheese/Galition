@@ -37,7 +37,9 @@ function getPokerHand() {
   }
 
   //replace this with the full check hand function
-  checkAlikeCards(selectedRanks);
+
+  console.log(selectedRanks);
+  console.log(checkAlikeCards(selectedRanks));
 }
 
 function fillFirstHand() {

@@ -1,4 +1,4 @@
-function populateCountMap(...cards) {
+function populateCountMap(cards) {
   //The Map object holds key-value pairs and remembers the original insertion order of the keys. (Normal objects in JS are order agnostic, unlike OOP languages.) Any value (both objects and primitive values) may be used as either a key or a value.
   const countMap = new Map();
 
@@ -16,8 +16,9 @@ function populateCountMap(...cards) {
   return countMap;
 }
 
-function checkAlikeCards(...cards) {
-  const countMap = populateCountMap(...cards);
+function checkAlikeCards(cards) {
+  const countMap = populateCountMap(cards);
+  console.log(countMap);
   // find the maximum value of the values of the countMap
   let maxCount = 0;
   for (const count of countMap.values()) {
@@ -29,9 +30,9 @@ function checkAlikeCards(...cards) {
   return maxCount;
 }
 
-function checkTwoPair(...cards) {
+function checkTwoPair(cards) {
   let countArr = [];
-  const countMap = populateCountMap(...cards);
+  const countMap = populateCountMap(cards);
 
   for (const count of countMap.values()) {
     countArr.push(count);
@@ -50,11 +51,11 @@ function checkTwoPair(...cards) {
 }
 
 //because populateCountMap will return the *maximum* amount of a card occuring, checkFullHouse will return false if the pair is part of a higher-order card set for instance where cards >5 (e.g.: [x,x,x,y,y,y]). This is intended behaviour.
-function checkFullHouse(...cards) {
+function checkFullHouse(cards) {
   //by definition, a full house is a set of five cards, so we skip the check if the set does not include at least 5 cards
   if (cards.length > 5) return false;
   else {
-    const countMap = populateCountMap(...cards);
+    const countMap = populateCountMap(cards);
 
     let hasPair = false;
     let hasTriplet = false;
@@ -69,19 +70,19 @@ function checkFullHouse(...cards) {
 }
 
 function unitTests() {
-  console.log(checkAlikeCards(1, 1, 2));
+  console.log(checkAlikeCards([1, 1, 2]));
 
-  console.log(checkAlikeCards(1, 2, 2, 2, 3));
+  console.log(checkAlikeCards([1, 2, 2, 2, 3]));
 
-  console.log(checkAlikeCards(1, 2, 2, 2, 2));
+  console.log(checkAlikeCards([1, 2, 2, 2, 2]));
 
-  console.log(checkAlikeCards(1, 2, 2, 2, 1));
+  console.log(checkAlikeCards([1, 2, 2, 2, 1]));
 
-  console.log(checkFullHouse(1, 2, 2, 2, 1));
+  console.log(checkFullHouse([1, 2, 2, 2, 1]));
 
-  console.log("Two pair: " + checkTwoPair(1, 2, 2, 3, 1));
+  console.log("Two pair: " + checkTwoPair([1, 2, 2, 3, 1]));
 
-  console.log("Two pair: " + checkTwoPair(1, 2, 5, 3, 1));
+  console.log("Two pair: " + checkTwoPair([1, 2, 5, 3, 1]));
 }
 
 unitTests();
