@@ -1,7 +1,7 @@
 const handArr = [];
 const cardOrderHoldingArr = [];
 const cardOrder = [];
-const selectedCardsID = [];
+let selectedCardsID = [];
 let cardsInHand = 0;
 let handValue = 0;
 
@@ -73,6 +73,8 @@ function getPokerHand() {
       break;
   }
 
+  console.log("SELECTED RANKS");
+  console.log(selectedRanks);
   let hasStraight = checkStraight(selectedRanks);
   let hasFlush = checkFlush(selectedSuits);
   let hasTwoPair = checkTwoPair(selectedRanks);

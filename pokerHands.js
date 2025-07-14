@@ -31,34 +31,24 @@ function checkAlikeCards(cards) {
 }
 
 function checkTwoPair(cards) {
-  let countArr = [];
   const countMap = populateCountMap(cards);
-
-  for (const count of countMap.values()) {
-    countArr.push(count);
+  // Make sure are at least 4 cards
+  if (cards.length < 4) {
+    return false;
   }
 
-  console.log(countArr);
-
-  const occurrenceMap = countArr.reduce((map, item) => {
-    map.set(item, (map.get(item) || 0) + 1);
-    return map;
-  }, new Map());
-
-  console.log("occurence map of two pair");
-  console.log(occurrenceMap);
-
-  let has1Pair = true;
-
-  for (const value of occurrenceMap) {
-    if (value === 2) {
-      has1Pair = true;
-      console.log(has1Pair);
-      occurrenceMap.delete(index);
+  let numberOfPairs = 0;
+  for (const count of countMap.values()) {
+    if (count >= 2) {
+      // A rank with 2 or more cards means it can form at least one pair
+      numberOfPairs++;
     }
   }
 
-  return false;
+  console.log("numberofpairs:" + numberOfPairs);
+  // If you found at least two distinct ranks that each have a count of 2 or more,
+  // then you have two pair.
+  return numberOfPairs >= 2;
 }
 
 //because populateCountMap will return the *maximum* amount of a card occuring, checkFullHouse will return false if the pair is part of a higher-order card set for instance where cards >5 (e.g.: [x,x,x,y,y,y]). This is intended behaviour.
