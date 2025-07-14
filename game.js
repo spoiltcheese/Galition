@@ -70,6 +70,16 @@ function getPokerHand() {
   }
 
   let hasStraight = checkStraight(selectedRanks);
+  let hasFlush = checkFlush(selectedSuits);
+  let hasTwoPair = checkTwoPair(selectedRanks);
+
+  if (hasStraight && hasFlush) handValue = 8;
+  else if (hasStraight) handValue = 4;
+  else if (hasFlush) handValue = 5;
+
+  if (hasTwoPair) handValue = 2;
+  document.querySelector("#pokerHandType").innerHTML = pokerHands[handValue];
+
   //console.log(selectedRanks);
   //console.log();
 }
