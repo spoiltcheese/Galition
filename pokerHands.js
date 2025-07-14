@@ -29,6 +29,26 @@ function checkAlikeCards(...cards) {
   return maxCount;
 }
 
+function checkTwoPair(...cards) {
+  let countArr = [];
+  const countMap = populateCountMap(...cards);
+
+  for (const count of countMap.values()) {
+    countArr.push(count);
+  }
+
+  const occurrenceMap = countArr.reduce((map, item) => {
+    map.set(item, (map.get(item) || 0) + 1);
+    return map;
+  }, new Map());
+
+  for (const count of occurrenceMap.values()) {
+    if (count === 2) return true;
+  }
+
+  return false;
+}
+
 //because populateCountMap will return the *maximum* amount of a card occuring, checkFullHouse will return false if the pair is part of a higher-order card set for instance where cards >5 (e.g.: [x,x,x,y,y,y]). This is intended behaviour.
 function checkFullHouse(...cards) {
   //by definition, a full house is a set of five cards, so we skip the check if the set does not include at least 5 cards
@@ -58,6 +78,10 @@ function unitTests() {
   console.log(checkAlikeCards(1, 2, 2, 2, 1));
 
   console.log(checkFullHouse(1, 2, 2, 2, 1));
+
+  console.log("Two pair: " + checkTwoPair(1, 2, 2, 3, 1));
+
+  console.log("Two pair: " + checkTwoPair(1, 2, 5, 3, 1));
 }
 
 unitTests();

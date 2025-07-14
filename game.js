@@ -1,22 +1,9 @@
 const handArr = [];
 const cardOrderHoldingArr = [];
 const cardOrder = [];
+const selectedCardsID = [];
 
 let deck = standardFullDeck;
-
-function fillFirstHand() {
-  shuffle();
-  for (let i = 0; i < 8; i++) {
-    console.log(getTopCard());
-    handArr[i] = document.createElement("img");
-    document.querySelector("#hand").appendChild(handArr[i]);
-    handArr[i].src = standardFullDeck[getTopCard()].imgSrc;
-    handArr[i].style.width = "10%";
-    handArr[i].style.paddingRight = "10px";
-  }
-}
-
-fillFirstHand();
 
 function shuffle() {
   for (let i = 0; i < standardFullDeck.length; i++) {
@@ -35,3 +22,46 @@ function shuffle() {
 function getTopCard() {
   return cardOrder.shift();
 }
+
+function getPokerHand() {
+  const cardContainer = [];
+  const selectedRanks = [];
+  const selectedSuits = [];
+  for (let card of selectedCardsID) {
+    cardContainer.push(standardFullDeck[card]);
+  }
+
+  for (let card of cardContainer) {
+    selectedRanks.push(card.rank);
+    selectedSuits.push(card.suit);
+  }
+
+  //replace this with the full check hand function
+  checkAlikeCards(selectedRanks);
+}
+
+function fillFirstHand() {
+  shuffle();
+  for (let i = 0; i < 8; i++) {
+    let topCardID = getTopCard();
+    handArr[i] = document.createElement("img");
+    document.querySelector("#hand").appendChild(handArr[i]);
+    handArr[i].id = topCardID;
+    handArr[i].src = standardFullDeck[topCardID].imgSrc;
+    handArr[i].style.width = "10%";
+    handArr[i].style.paddingRight = "10px";
+    handArr[i].addEventListener("click", (event) => {
+      if (!selectedCardsID.some((id) => id === handArr[i].id)) {
+        document.querySelector("#playArea").appendChild(handArr[i]);
+        selectedCardsID.push(handArr[i].id);
+        console.log(selectedCardsID);
+        getPokerHand();
+      } else {
+        document.querySelector("#hand").appendChild(handArr[i]);
+        selectedCardsID.splice(selectedCardsID.indexOf(handArr[i].id), 1);
+      }
+    });
+  }
+}
+
+fillFirstHand();
