@@ -1,6 +1,6 @@
 const handImgArr = [];
-const cardOrderHoldingArr = [];
-const cardOrder = [];
+let cardOrderHoldingArr = [];
+let cardOrder = [];
 let selectedCardsID = [];
 let cardsInHand = 0;
 let handValue = 0;
@@ -20,7 +20,15 @@ const levels = [250, 300, 400, 520, 635, 750, 885, 1000];
 let levelMinimumScore = 0;
 let currentLevel = 0;
 
+//let maxLevels = levels.length
+let maxLevels = 2;
+
 let deck = standardFullDeck;
+
+function getLevel(level) {
+  document.querySelector("#levelScoreMinimum").innerHTML =
+    "Minimum score: " + levels[level];
+}
 
 function clearPlayArea() {
   document.querySelector("#playArea").replaceChildren();
@@ -47,35 +55,34 @@ function init() {
     document.querySelector("#runningScore").innerHTML =
       "Score: " + runningScore;
 
-    if (runningScore >= levels[currentLevel] && currentLevel < 8) {
+    if (runningScore >= levels[currentLevel] && currentLevel + 1 < maxLevels) {
       currentLevel++;
       runningScore = 0;
-
-      console.log(levels[currentLevel]);
-      console.log(currentLevel);
 
       getLevel(currentLevel);
 
       document.querySelector("#runningScore").innerHTML =
         "Currrent score: " + runningScore;
-      //todo: regenerate deck
-    } else if (currentLevel >= 8) {
+      newLevel();
+    } else if (currentLevel + 1 >= maxLevels) {
       //you win!
+      console.log("you win");
     }
   });
-  shuffle();
-  getLevel(currentLevel);
+  newLevel();
 
   document.querySelector("#runningScore").innerHTML =
     "Currrent score: " + runningScore;
 }
 
-function getLevel(level) {
-  document.querySelector("#levelScoreMinimum").innerHTML =
-    "Minimum score: " + levels[level];
+function newLevel() {
+  shuffle();
+  getLevel(currentLevel);
 }
 
 function shuffle() {
+  cardOrderHoldingArr = [];
+  cardOrder = [];
   for (let i = 0; i < standardFullDeck.length; i++) {
     cardOrderHoldingArr.push(i);
   }
@@ -86,7 +93,7 @@ function shuffle() {
     cardOrderHoldingArr.splice(randIndex, 1);
   }
 
-  //console.log(cardOrder);
+  console.log(cardOrder);
 }
 
 function getTopCard() {

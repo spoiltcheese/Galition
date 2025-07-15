@@ -72,6 +72,7 @@ function checkFullHouse(cards) {
 function checkStraight(cards) {
   if (cards.length !== 5) return false;
   else {
+    cards.sort((a, b) => a - b);
     if (
       parseInt(cards[0] + 1) === parseInt(cards[1]) &&
       parseInt(cards[1] + 1) === parseInt(cards[2]) &&
