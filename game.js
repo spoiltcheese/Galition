@@ -10,6 +10,9 @@ let handScore = 0;
 let cardsScore = 0;
 let mult = 0;
 
+let runningScore = 0;
+let addedScore = 0;
+
 const scoreElements = [];
 
 let deck = standardFullDeck;
@@ -33,8 +36,15 @@ function init() {
 
   playHand.addEventListener("click", (event) => {
     clearPlayArea();
+    runningScore += addedScore;
+    addedScore = 0;
+
+    document.querySelector("#runningScore").innerHTML =
+      "Score: " + runningScore;
   });
   shuffle();
+
+  document.querySelector("#runningScore").innerHTML = "Score: " + runningScore;
 }
 
 function shuffle() {
@@ -105,15 +115,13 @@ function getPokerHand() {
 
   handScore = baseScore[handValue].score;
   mult = baseScore[handValue].mult;
-
+  addedScore = (handScore + cardsScore) * mult;
   addCardScore();
 
   document.querySelector("#pokerHandType").innerHTML = pokerHands[handValue];
   document.querySelector(
     "#score"
-  ).innerHTML = `(${handScore} + ${cardsScore}) x ${mult} = ${
-    (handScore + cardsScore) * mult
-  }`;
+  ).innerHTML = `(${handScore} + ${cardsScore}) x ${mult} = ${addedScore}`;
 }
 
 function addCardScore() {
