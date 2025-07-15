@@ -105,6 +105,7 @@ function generateStandardFullDeck() {
       let card = new Card(
         rank.rank,
         suit,
+        rank.value,
         `img/${rank.name.toLowerCase()}_of_${suit.toLowerCase()}.png`,
         `${rank.name} of ${suit}`
       );

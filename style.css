@@ -1,3 +1,7 @@
 #hand {
   gap: 10px;
 }
+
+table {
+  border: none;
+}
