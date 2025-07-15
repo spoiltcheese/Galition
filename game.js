@@ -82,7 +82,7 @@ function getPokerHand() {
       handValue = 1;
       break;
     case 3:
-      handValue = 2;
+      handValue = 3;
       break;
     case 4:
       handValue = 6;
@@ -94,12 +94,14 @@ function getPokerHand() {
   let hasStraight = checkStraight(selectedRanks);
   let hasFlush = checkFlush(selectedSuits);
   let hasTwoPair = checkTwoPair(selectedRanks);
+  let hasFullHouse = checkFullHouse(selectedRanks);
 
   if (hasStraight && hasFlush) handValue = 8;
   else if (hasStraight) handValue = 4;
   else if (hasFlush) handValue = 5;
 
-  if (hasTwoPair) handValue = 2;
+  if (hasFullHouse) handValue = 6;
+  else if (hasTwoPair) handValue = 2;
 
   handScore = baseScore[handValue].score;
   mult = baseScore[handValue].mult;
