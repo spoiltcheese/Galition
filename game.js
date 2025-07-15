@@ -15,6 +15,11 @@ let addedScore = 0;
 
 const scoreElements = [];
 
+const levels = [250, 300, 400, 520, 635, 750, 885, 1000];
+
+let levelMinimumScore = 0;
+let currentLevel = 0;
+
 let deck = standardFullDeck;
 
 function clearPlayArea() {
@@ -41,10 +46,33 @@ function init() {
 
     document.querySelector("#runningScore").innerHTML =
       "Score: " + runningScore;
+
+    if (runningScore >= levels[currentLevel] && currentLevel < 8) {
+      currentLevel++;
+      runningScore = 0;
+
+      console.log(levels[currentLevel]);
+      console.log(currentLevel);
+
+      getLevel(currentLevel);
+
+      document.querySelector("#runningScore").innerHTML =
+        "Currrent score: " + runningScore;
+      //todo: regenerate deck
+    } else if (currentLevel >= 8) {
+      //you win!
+    }
   });
   shuffle();
+  getLevel(currentLevel);
 
-  document.querySelector("#runningScore").innerHTML = "Score: " + runningScore;
+  document.querySelector("#runningScore").innerHTML =
+    "Currrent score: " + runningScore;
+}
+
+function getLevel(level) {
+  document.querySelector("#levelScoreMinimum").innerHTML =
+    "Minimum score: " + levels[level];
 }
 
 function shuffle() {
