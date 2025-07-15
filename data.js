@@ -83,6 +83,19 @@ const ranks = [
   },
 ];
 
+const baseScore = [
+  { score: 5, mult: 1 },
+  { score: 10, mult: 2 },
+  { score: 20, mult: 2 },
+  { score: 30, mult: 3 },
+  { score: 30, mult: 4 },
+  { score: 35, mult: 4 },
+  { score: 40, mult: 4 },
+  { score: 60, mult: 7 },
+  { score: 100, mult: 8 },
+  { score: 100, mult: 8 },
+];
+
 const suits = ["Diamonds", "Hearts", "Clubs", "Spades"];
 
 function generateStandardFullDeck() {

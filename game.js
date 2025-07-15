@@ -4,6 +4,7 @@ const cardOrder = [];
 let selectedCardsID = [];
 let cardsInHand = 0;
 let handValue = 0;
+let cardsInPlay = 0;
 
 let deck = standardFullDeck;
 
@@ -17,6 +18,8 @@ function init() {
     handValue = 0;
     document.querySelector("#pokerHandType").innerHTML = "";
     selectedCardsID = [];
+    cardsInPlay = 0;
+    document.querySelector("#score").innerHTML = "";
   });
   shuffle();
 }
@@ -85,7 +88,9 @@ function getPokerHand() {
 
   if (hasTwoPair) handValue = 2;
   document.querySelector("#pokerHandType").innerHTML = pokerHands[handValue];
-
+  document.querySelector(
+    "#score"
+  ).innerHTML = `${baseScore[handValue].score} x ${baseScore[handValue].mult}`;
   //console.log(selectedRanks);
   //console.log();
 }
@@ -107,14 +112,17 @@ function fillHand(cardsAlreadyInside) {
       let id = idStr.split("c")[1];
       let currentCard = document.querySelector("#" + idStr);
       if (!selectedCardsID.some((x) => x === id)) {
-        console.log("CARD NOT FOUND");
-        console.log(currentCard);
-        document.querySelector("#playArea").appendChild(currentCard);
+        if (cardsInPlay < 5) {
+          console.log("CARD NOT FOUND");
+          console.log(currentCard);
+          document.querySelector("#playArea").appendChild(currentCard);
 
-        selectedCardsID.push(id);
-        handArr.splice(handArr.indexOf(id));
-        cardsInHand--;
-        getPokerHand();
+          selectedCardsID.push(id);
+          handArr.splice(handArr.indexOf(id));
+          cardsInHand--;
+          getPokerHand();
+          cardsInPlay++;
+        }
       } else {
         console.log("CARD FOUND");
         console.log(currentCard);
@@ -122,6 +130,7 @@ function fillHand(cardsAlreadyInside) {
         selectedCardsID.splice(selectedCardsID.indexOf(id), 1);
         cardsInHand++;
         getPokerHand();
+        cardsInPlay--;
       }
     });
   }
