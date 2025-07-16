@@ -2,8 +2,8 @@
   text-align: center;
 }
 
-.container div {
-  height: 100%;
+.mainGame {
+  padding-bottom: 10px;
 }
 
 #notif {
@@ -11,12 +11,19 @@
   background-color: rgb(228, 228, 228);
   border-radius: 10px;
   border: 2px solid;
-  width: 90%;
+  width: 50%;
 
-  margin-top: 30px;
+  padding-bottom: 20px;
+
+  margin-inline: auto;
   /*
   display: block;
   position: absolute;
   top: 50px;
   left: 50px;*/
+}
+
+#upgrades {
+  margin-inline: auto;
+  padding-bottom: 20px;
 }
