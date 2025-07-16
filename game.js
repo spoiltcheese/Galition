@@ -17,7 +17,7 @@ const scoreElements = [];
 
 //const levels = [250, 300, 400, 520, 635, 750, 885, 1000];
 
-const levels = [100, 100, 100];
+const levels = [150, 250, 400];
 
 let levelMinimumScore = 0;
 let currentLevel = 0;
