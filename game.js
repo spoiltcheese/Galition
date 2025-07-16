@@ -15,19 +15,99 @@ let addedScore = 0;
 
 const scoreElements = [];
 
-const levels = [250, 300, 400, 520, 635, 750, 885, 1000];
+//const levels = [250, 300, 400, 520, 635, 750, 885, 1000];
+
+const levels = [1, 1, 1];
 
 let levelMinimumScore = 0;
 let currentLevel = 0;
 
-//let maxLevels = levels.length
-let maxLevels = 2;
+let maxLevels = levels.length;
+//let maxLevels = 2;
 
 let deck = standardFullDeck;
+
+function shuffle() {
+  cardOrderHoldingArr = [];
+  cardOrder = [];
+  for (let i = 0; i < standardFullDeck.length; i++) {
+    cardOrderHoldingArr.push(i);
+  }
+
+  for (let j = 0; j < standardFullDeck.length; j++) {
+    let randIndex = Math.floor(Math.random() * cardOrderHoldingArr.length);
+    cardOrder.push(cardOrderHoldingArr[randIndex]);
+    cardOrderHoldingArr.splice(randIndex, 1);
+  }
+
+  console.log(cardOrder);
+}
 
 function getLevel(level) {
   document.querySelector("#levelScoreMinimum").innerHTML =
     "Minimum score: " + levels[level];
+}
+
+function fillHand(cardsAlreadyInside) {
+  for (let i = cardsAlreadyInside; i < 8; i++) {
+    cardsInHand = 8;
+    let topCardID = getTopCard();
+    handImgArr[i] = document.createElement("img");
+    document.querySelector("#hand").appendChild(handImgArr[i]);
+    handImgArr[i].id = "c" + topCardID;
+    handImgArr[i].src = standardFullDeck[topCardID].imgSrc;
+    handImgArr[i].style.width = "10%";
+    handImgArr[i].style.paddingRight = "10px";
+    handImgArr[i].addEventListener("click", (event) => {
+      let idStr = event.target.id;
+      let id = idStr.split("c")[1];
+      let currentCard = document.querySelector("#" + idStr);
+      if (!selectedCardsID.some((x) => x === id)) {
+        if (cardsInPlay < 5) {
+          document.querySelector("#playArea").appendChild(currentCard);
+          selectedCardsID.push(id);
+          handImgArr.splice(handImgArr.indexOf(id));
+          cardsInHand--;
+          getPokerHand();
+          cardsInPlay++;
+        }
+      } else {
+        document.querySelector("#hand").appendChild(currentCard);
+        selectedCardsID.splice(selectedCardsID.indexOf(id), 1);
+        cardsInHand++;
+        getPokerHand();
+        cardsInPlay--;
+      }
+    });
+  }
+}
+
+function newLevel() {
+  document.querySelector("#notif").style.display = "none";
+  shuffle();
+  getLevel(currentLevel);
+
+  document.querySelector("#runningScore").style.display = "block";
+  document.querySelector("#levelScoreMinimum").style.display = "block";
+  document.querySelector("#individualCardScore").style.display = "block";
+  document.querySelector("#pokerHandType").style.display = "block";
+  document.querySelector("#score").style.display = "block";
+  document.querySelector("#buttons").style.display = "block";
+
+  fillHand(0);
+}
+
+function levelWon() {
+  console.log("show overlay");
+  document.querySelector("#notif").style.display = "block";
+  document.querySelector("#playArea").replaceChildren();
+  document.querySelector("#hand").replaceChildren();
+  document.querySelector("#runningScore").style.display = "none";
+  document.querySelector("#levelScoreMinimum").style.display = "none";
+  document.querySelector("#individualCardScore").style.display = "none";
+  document.querySelector("#pokerHandType").style.display = "none";
+  document.querySelector("#score").style.display = "none";
+  document.querySelector("#buttons").style.display = "none";
 }
 
 function clearPlayArea() {
@@ -42,7 +122,10 @@ function clearPlayArea() {
 }
 
 function init() {
-  //document.querySelector("#notif").style.display = "none";
+  document.querySelector("#notif").style.display = "none";
+  nextLevel.addEventListener("click", (event) => {
+    newLevel();
+  });
   discard.addEventListener("click", (event) => {
     console.log("discard pressed");
     clearPlayArea();
@@ -64,7 +147,8 @@ function init() {
 
       document.querySelector("#runningScore").innerHTML =
         "Currrent score: " + runningScore;
-      newLevel();
+
+      levelWon();
     } else if (currentLevel + 1 >= maxLevels) {
       //you win!
       console.log("you win");
@@ -74,27 +158,6 @@ function init() {
 
   document.querySelector("#runningScore").innerHTML =
     "Currrent score: " + runningScore;
-}
-
-function newLevel() {
-  shuffle();
-  getLevel(currentLevel);
-}
-
-function shuffle() {
-  cardOrderHoldingArr = [];
-  cardOrder = [];
-  for (let i = 0; i < standardFullDeck.length; i++) {
-    cardOrderHoldingArr.push(i);
-  }
-
-  for (let j = 0; j < standardFullDeck.length; j++) {
-    let randIndex = Math.floor(Math.random() * cardOrderHoldingArr.length);
-    cardOrder.push(cardOrderHoldingArr[randIndex]);
-    cardOrderHoldingArr.splice(randIndex, 1);
-  }
-
-  console.log(cardOrder);
 }
 
 function getTopCard() {
@@ -177,40 +240,6 @@ function addCardScore() {
 
   document.querySelector("#individualCardScore").innerHTML +=
     " = " + cardsScore;
-}
-
-function fillHand(cardsAlreadyInside) {
-  for (let i = cardsAlreadyInside; i < 8; i++) {
-    cardsInHand = 8;
-    let topCardID = getTopCard();
-    handImgArr[i] = document.createElement("img");
-    document.querySelector("#hand").appendChild(handImgArr[i]);
-    handImgArr[i].id = "c" + topCardID;
-    handImgArr[i].src = standardFullDeck[topCardID].imgSrc;
-    handImgArr[i].style.width = "10%";
-    handImgArr[i].style.paddingRight = "10px";
-    handImgArr[i].addEventListener("click", (event) => {
-      let idStr = event.target.id;
-      let id = idStr.split("c")[1];
-      let currentCard = document.querySelector("#" + idStr);
-      if (!selectedCardsID.some((x) => x === id)) {
-        if (cardsInPlay < 5) {
-          document.querySelector("#playArea").appendChild(currentCard);
-          selectedCardsID.push(id);
-          handImgArr.splice(handImgArr.indexOf(id));
-          cardsInHand--;
-          getPokerHand();
-          cardsInPlay++;
-        }
-      } else {
-        document.querySelector("#hand").appendChild(currentCard);
-        selectedCardsID.splice(selectedCardsID.indexOf(id), 1);
-        cardsInHand++;
-        getPokerHand();
-        cardsInPlay--;
-      }
-    });
-  }
 }
 
 init();
