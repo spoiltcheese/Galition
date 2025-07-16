@@ -134,6 +134,7 @@ function goldTransaction(cost) {
 
 function hideTopUI() {
   document.querySelector("#playArea").replaceChildren();
+  document.querySelector("#hand").replaceChildren();
   document.querySelector("#runningScore").style.display = "none";
   document.querySelector("#levelScoreMinimum").style.display = "none";
   document.querySelector("#individualCardScore").style.display = "none";
