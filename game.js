@@ -82,17 +82,22 @@ function fillHand(cardsAlreadyInside) {
   }
 }
 
-function newLevel() {
-  document.querySelector("#notif").style.display = "none";
-  shuffle();
-  getLevel(currentLevel);
-
+function clearTopUI() {
   document.querySelector("#runningScore").style.display = "block";
   document.querySelector("#levelScoreMinimum").style.display = "block";
   document.querySelector("#individualCardScore").style.display = "block";
   document.querySelector("#pokerHandType").style.display = "block";
   document.querySelector("#score").style.display = "block";
   document.querySelector("#buttons").style.display = "block";
+}
+
+function newLevel() {
+  document.querySelector("#notif").style.display = "none";
+  document.querySelector("#message").style.display = "none";
+  shuffle();
+  getLevel(currentLevel);
+
+  clearTopUI();
 
   fillHand(0);
 }
@@ -110,6 +115,12 @@ function levelWon() {
   document.querySelector("#buttons").style.display = "none";
 }
 
+function gameWon() {
+  console.log("game won");
+  document.querySelector("#message").style.display = "block";
+  document.querySelector("#message").innerHTML = "You Win!";
+}
+
 function clearPlayArea() {
   document.querySelector("#playArea").replaceChildren();
   fillHand(cardsInHand);
@@ -122,7 +133,6 @@ function clearPlayArea() {
 }
 
 function init() {
-  document.querySelector("#notif").style.display = "none";
   nextLevel.addEventListener("click", (event) => {
     newLevel();
   });
@@ -151,7 +161,7 @@ function init() {
       levelWon();
     } else if (currentLevel + 1 >= maxLevels) {
       //you win!
-      console.log("you win");
+      gameWon();
     }
   });
   newLevel();
