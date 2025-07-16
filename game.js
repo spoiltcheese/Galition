@@ -112,6 +112,10 @@ function newLevel() {
   document.querySelector("#pokerHandType").style.display = "block";
   document.querySelector("#score").style.display = "block";
   document.querySelector("#buttons").style.display = "block";
+  document.querySelector("#currentLevel").style.display = "block";
+
+  document.querySelector("#currentLevel").innerHTML =
+    "Current level: " + (currentLevel + 1);
 
   document.querySelector("#numHands").innerHTML = "Hands: " + currentHand;
   document.querySelector("#numDiscards").innerHTML =
@@ -148,7 +152,8 @@ function levelWon() {
   hideTopUI();
 
   gold += levelReward;
-  updateGold();
+
+  document.querySelector("#gold").innerHTML = "Gold: " + gold;
 }
 
 function gameWon() {
