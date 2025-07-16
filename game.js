@@ -170,6 +170,7 @@ function clearPlayArea() {
 
   handValue = 0;
   document.querySelector("#pokerHandType").innerHTML = "";
+  document.querySelector("#individualCardScore").innerHTML = "";
   selectedCardsID = [];
   cardsInPlay = 0;
   document.querySelector("#score").innerHTML = "";
@@ -307,14 +308,15 @@ function getPokerHand() {
   else if (hasTwoPair) handValue = 2;
 
   handScore = baseScore[handValue].score + plusScoreValue;
-  mult = (baseScore[handValue].mult + plusMultValue) * timesMultValue;
-  addedScore = Math.round((handScore + cardsScore) * mult);
   addCardScore();
+
+  let totalMult = (baseScore[handValue].mult + plusMultValue) * timesMultValue;
+  addedScore = Math.round((handScore + cardsScore) * totalMult);
 
   document.querySelector("#pokerHandType").innerHTML = pokerHands[handValue];
   document.querySelector(
     "#score"
-  ).innerHTML = `(${handScore} + ${cardsScore}) x ${mult} = ${addedScore}`;
+  ).innerHTML = `[${baseScore[handValue].score} + ${plusScoreValue} + ${cardsScore}] x [(${baseScore[handValue].mult} + ${plusMultValue}) x ${timesMultValue}]  = ${addedScore}`;
 }
 
 function addCardScore() {
