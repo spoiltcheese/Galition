@@ -27,6 +27,13 @@ let maxLevels = levels.length;
 
 let deck = standardFullDeck;
 
+let plusScoreValue = 0;
+let plusMultValue = 0;
+let timesMultValue = 1;
+
+let gold = 0;
+const levelReward = 5;
+
 function shuffle() {
   cardOrderHoldingArr = [];
   cardOrder = [];
@@ -102,6 +109,15 @@ function newLevel() {
   fillHand(0);
 }
 
+function goldTransaction(cost) {
+  if (gold - cost < 0) return false;
+  else {
+    gold -= cost;
+    document.querySelector("#gold").innerHTML = "Gold: " + gold;
+    return true;
+  }
+}
+
 function levelWon() {
   console.log("show overlay");
   document.querySelector("#notif").style.display = "block";
@@ -113,6 +129,9 @@ function levelWon() {
   document.querySelector("#pokerHandType").style.display = "none";
   document.querySelector("#score").style.display = "none";
   document.querySelector("#buttons").style.display = "none";
+
+  gold += levelReward;
+  updateGold();
 }
 
 function gameWon() {
@@ -168,6 +187,34 @@ function init() {
 
   document.querySelector("#runningScore").innerHTML =
     "Currrent score: " + runningScore;
+
+  buyPlusScore.addEventListener("click", (event) => {
+    if (goldTransaction(1)) {
+      plusScoreValue += 10;
+      document.querySelector("#plusScore").innerHTML =
+        "+" + plusScoreValue + " score";
+    }
+  });
+
+  buyPlusMult.addEventListener("click", (event) => {
+    if (goldTransaction(1)) {
+      plusMultValue += 1;
+      document.querySelector("#plusMult").innerHTML =
+        "+" + plusMultValue + " mult";
+    }
+  });
+
+  buyTimesMult.addEventListener("click", (event) => {
+    if (goldTransaction(1)) {
+      //workaround for JS not supporting floating point operations
+      timesMultValue += 0.1;
+      timesMultValue *= 10;
+      timesMultValue = Math.round(timesMultValue);
+      timesMultValue /= 10;
+      document.querySelector("#timesMult").innerHTML =
+        "x" + timesMultValue + " mult";
+    }
+  });
 }
 
 function getTopCard() {
@@ -222,9 +269,9 @@ function getPokerHand() {
   if (hasFullHouse) handValue = 6;
   else if (hasTwoPair) handValue = 2;
 
-  handScore = baseScore[handValue].score;
-  mult = baseScore[handValue].mult;
-  addedScore = (handScore + cardsScore) * mult;
+  handScore = baseScore[handValue].score + plusScoreValue;
+  mult = (baseScore[handValue].mult + plusMultValue) * timesMultValue;
+  addedScore = Math.round((handScore + cardsScore) * mult);
   addCardScore();
 
   document.querySelector("#pokerHandType").innerHTML = pokerHands[handValue];
