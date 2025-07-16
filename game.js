@@ -95,23 +95,27 @@ function fillHand(cardsAlreadyInside) {
   }
 }
 
-function clearTopUI() {
-  document.querySelector("#runningScore").style.display = "block";
-  document.querySelector("#levelScoreMinimum").style.display = "block";
-  document.querySelector("#individualCardScore").style.display = "block";
-  document.querySelector("#pokerHandType").style.display = "block";
-  document.querySelector("#score").style.display = "block";
-  document.querySelector("#buttons").style.display = "block";
-}
-
 function newLevel() {
   document.querySelector("#notif").style.display = "none";
   document.querySelector("#message").style.display = "none";
   shuffle();
   getLevel(currentLevel);
 
-  clearTopUI();
+  currentHand = maxHands;
+  currentDiscard = maxDiscards;
 
+  document.querySelector("#numHands").style.display = "block";
+  document.querySelector("#numDiscards").style.display = "block";
+  document.querySelector("#runningScore").style.display = "block";
+  document.querySelector("#levelScoreMinimum").style.display = "block";
+  document.querySelector("#individualCardScore").style.display = "block";
+  document.querySelector("#pokerHandType").style.display = "block";
+  document.querySelector("#score").style.display = "block";
+  document.querySelector("#buttons").style.display = "block";
+
+  document.querySelector("#numHands").innerHTML = "Hands: " + currentHand;
+  document.querySelector("#numDiscards").innerHTML =
+    "Discards: " + currentDiscard;
   fillHand(0);
 }
 
@@ -124,26 +128,40 @@ function goldTransaction(cost) {
   }
 }
 
-function levelWon() {
-  console.log("show overlay");
-  document.querySelector("#notif").style.display = "block";
+function hideTopUI() {
   document.querySelector("#playArea").replaceChildren();
-  document.querySelector("#hand").replaceChildren();
   document.querySelector("#runningScore").style.display = "none";
   document.querySelector("#levelScoreMinimum").style.display = "none";
   document.querySelector("#individualCardScore").style.display = "none";
   document.querySelector("#pokerHandType").style.display = "none";
   document.querySelector("#score").style.display = "none";
   document.querySelector("#buttons").style.display = "none";
+  document.querySelector("#numHands").style.display = "none";
+  document.querySelector("#numDiscards").style.display = "none";
+}
+
+function levelWon() {
+  console.log("show overlay");
+  document.querySelector("#notif").style.display = "block";
+  document.querySelector("#playArea").replaceChildren();
+  document.querySelector("#hand").replaceChildren();
+  hideTopUI();
 
   gold += levelReward;
   updateGold();
 }
 
 function gameWon() {
-  console.log("game won");
+  hideTopUI();
   document.querySelector("#message").style.display = "block";
   document.querySelector("#message").innerHTML = "You Win!";
+}
+
+function gameOver() {
+  hideTopUI();
+
+  document.querySelector("#message").style.display = "block";
+  document.querySelector("#message").innerHTML = "Game Over!";
 }
 
 function clearPlayArea() {
@@ -195,6 +213,8 @@ function init() {
     } else if (currentHand > 1) {
       currentHand--;
       document.querySelector("#numHands").innerHTML = "Hands: " + currentHand;
+    } else if (currentHand - 1 <= 0) {
+      gameOver();
     }
   });
   newLevel();
