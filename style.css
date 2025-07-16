@@ -1,7 +1,11 @@
-#hand {
-  gap: 10px;
-}
-
-table {
-  border: none;
+#notif {
+  z-index: 100;
+  background-color: grey;
+  border-radius: 10px;
+  border: 2px solid;
+  width: 80%;
+  display: block;
+  position: absolute;
+  top: 50px;
+  left: 50px;
 }

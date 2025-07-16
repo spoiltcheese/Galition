@@ -42,6 +42,7 @@ function clearPlayArea() {
 }
 
 function init() {
+  document.querySelector("#notif").style.display = "none";
   discard.addEventListener("click", (event) => {
     console.log("discard pressed");
     clearPlayArea();
