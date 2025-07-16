@@ -17,7 +17,7 @@ const scoreElements = [];
 
 //const levels = [250, 300, 400, 520, 635, 750, 885, 1000];
 
-const levels = [1, 1, 1];
+const levels = [100, 100, 100];
 
 let levelMinimumScore = 0;
 let currentLevel = 0;
@@ -33,6 +33,12 @@ let timesMultValue = 1;
 
 let gold = 0;
 const levelReward = 5;
+
+const maxHands = 4;
+const maxDiscards = 4;
+
+let currentHand = maxHands;
+let currentDiscard = maxDiscards;
 
 function shuffle() {
   cardOrderHoldingArr = [];
@@ -156,8 +162,13 @@ function init() {
     newLevel();
   });
   discard.addEventListener("click", (event) => {
-    console.log("discard pressed");
-    clearPlayArea();
+    if (currentDiscard > 0) {
+      currentDiscard--;
+      console.log("discard pressed");
+      clearPlayArea();
+      document.querySelector("#numDiscards").innerHTML =
+        "Discards: " + currentDiscard;
+    }
   });
 
   playHand.addEventListener("click", (event) => {
@@ -181,6 +192,9 @@ function init() {
     } else if (currentLevel + 1 >= maxLevels) {
       //you win!
       gameWon();
+    } else if (currentHand > 1) {
+      currentHand--;
+      document.querySelector("#numHands").innerHTML = "Hands: " + currentHand;
     }
   });
   newLevel();
@@ -215,6 +229,9 @@ function init() {
         "x" + timesMultValue + " mult";
     }
   });
+
+  document.querySelector("#numHands").innerHTML = "Hands: " + maxHands;
+  document.querySelector("#numDiscards").innerHTML = "Discards: " + maxDiscards;
 }
 
 function getTopCard() {
