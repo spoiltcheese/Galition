@@ -113,8 +113,6 @@ function generateStandardFullDeck() {
       output.push(card);
     }
   }
-
-  //console.dir(output);
   return output;
 }
 
