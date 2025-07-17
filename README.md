@@ -20,6 +20,7 @@ Base scoring is based on this table, which has two variables: the base value of 
 10. Royal Flush: 100x8
 
 ![poker hands](./img/readme/poker-hands.jpg "Poker Hands")
+
 _Image credit: https://pokercoaching.com/_
 
 The actual value of the cards used will be added to the score, while any modifications (see below) to the multiplier will be added to the multiplier.
