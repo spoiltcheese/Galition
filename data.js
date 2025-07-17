@@ -102,11 +102,12 @@ function generateStandardFullDeck() {
   let output = [];
   for (let suit of suits) {
     for (let rank of ranks) {
+      let fullName = rank.name.toLowerCase() + "_of_" + suit.toLowerCase();
       let card = new Card(
         rank.rank,
         suit,
         rank.value,
-        `img/${rank.name.toLowerCase()}_of_${suit.toLowerCase()}.png`,
+        `img/${fullName}.png`,
         `${rank.name} of ${suit}`
       );
       output.push(card);

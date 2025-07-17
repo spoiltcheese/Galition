@@ -1,4 +1,3 @@
-const handImgArr = [];
 let cardOrderHoldingArr = [];
 let cardOrder = [];
 let selectedCardsID = [];
@@ -59,13 +58,14 @@ function fillHand(cardsAlreadyInside) {
   for (let i = cardsAlreadyInside; i < 8; i++) {
     cardsInHand = 8;
     let topCardID = getTopCard();
-    handImgArr[i] = document.createElement("img");
-    document.querySelector("#hand").appendChild(handImgArr[i]);
-    handImgArr[i].id = "c" + topCardID;
-    handImgArr[i].src = standardFullDeck[topCardID].imgSrc;
-    handImgArr[i].style.width = "10%";
-    handImgArr[i].style.paddingRight = "10px";
-    handImgArr[i].addEventListener("click", (event) => {
+    let element = document.createElement("img");
+    document.querySelector("#hand").appendChild(element);
+    element.id = "c" + topCardID;
+    element.src = standardFullDeck[topCardID].imgSrc;
+    element.alt = standardFullDeck[topCardID].altName;
+    element.style.width = "10%";
+    element.style.paddingRight = "10px";
+    element.addEventListener("click", (event) => {
       let idStr = event.target.id;
       let id = idStr.split("c")[1];
       let currentCard = document.querySelector("#" + idStr);
@@ -73,7 +73,6 @@ function fillHand(cardsAlreadyInside) {
         if (cardsInPlay < 5) {
           document.querySelector("#playArea").appendChild(currentCard);
           selectedCardsID.push(id);
-          handImgArr.splice(handImgArr.indexOf(id));
           cardsInHand--;
           getPokerHand();
           cardsInPlay++;
@@ -333,5 +332,3 @@ function addCardScore() {
 }
 
 init();
-
-fillHand(cardsInHand);
