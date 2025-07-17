@@ -8,16 +8,16 @@ You are dealt 8 cards out of a standard 52 card deck and by selecting up to 5 ca
 
 Base scoring is based on this table, which has two variables: the base value of the hand before the cards are counted, and its base multiplier:
 
-High card: 5x1
-Pair: 10x2
-Two Pairs: 20x2
-Three of a Kind: 30x3
-Straight: 30x4
-Flush: 35x4
-Full House: 40x4
-Four of a Kind: 60x7
-Straight Flush: 100x8
-Royal Flush: 100x8
+1. High card: 5x1
+2. Pair: 10x2
+3. Two Pairs: 20x2
+4. Three of a Kind: 30x3
+5. Straight: 30x4
+6. Flush: 35x4
+7. Full House: 40x4
+8. Four of a Kind: 60x7
+9. Straight Flush: 100x8
+10. Royal Flush: 100x8
 
 ![poker hands](./img/readme/poker-hands.jpg "Poker Hands")
 _Image credit: https://pokercoaching.com/_
@@ -30,9 +30,9 @@ After winning the level, you will given a set amount of money to spend on modifi
 
 There are 3 kinds of modifications:
 
-+base score,
-+multiplier, and
-xmultiplier
+- +base score,
+- +multiplier, and
+- xmultiplier
 
 The exact values will be based on the level they are bought and the number of modifications bought in the run, but the cost will increase accordingly until the next level is cleared.
 
