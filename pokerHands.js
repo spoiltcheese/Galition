@@ -18,7 +18,6 @@ function populateCountMap(cards) {
 
 function checkAlikeCards(cards) {
   const countMap = populateCountMap(cards);
-  console.log(countMap);
   // find the maximum value of the values of the countMap
   let maxCount = 0;
   for (const count of countMap.values()) {
@@ -43,8 +42,6 @@ function checkTwoPair(cards) {
       numberOfPairs++;
     }
   }
-
-  //console.log("numberofpairs:" + numberOfPairs);
   // If you found at least two distinct ranks that each have a count of 2,
   // then you have two pair.
   return numberOfPairs >= 2;
@@ -90,20 +87,3 @@ function checkFlush(cards) {
     return cards.every((val) => val === cards[0]);
   }
 }
-
-function unitTests() {
-  /*
-  console.log(checkAlikeCards([1, 1, 2]));
-
-  console.log(checkAlikeCards([1, 2, 2, 2, 3]));
-
-  console.log(checkAlikeCards([1, 2, 2, 2, 2]));
-
-  console.log(checkAlikeCards([1, 2, 2, 2, 1]));
-
-  console.log(checkFullHouse([1, 2, 2, 2, 1]));
-
-  console.log("Two pair: " + checkTwoPair([1, 2, 2, 3, 1]));  */
-}
-
-unitTests();

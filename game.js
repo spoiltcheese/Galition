@@ -14,16 +14,12 @@ let runningScore = 0;
 let addedScore = 0;
 
 const scoreElements = [];
-
-//const levels = [250, 300, 400, 520, 635, 750, 885, 1000];
-
 const levels = [150, 250, 400];
 
 let levelMinimumScore = 0;
 let currentLevel = 0;
 
 let maxLevels = levels.length;
-//let maxLevels = 2;
 
 let deck = standardFullDeck;
 
@@ -52,8 +48,6 @@ function shuffle() {
     cardOrder.push(cardOrderHoldingArr[randIndex]);
     cardOrderHoldingArr.splice(randIndex, 1);
   }
-
-  console.log(cardOrder);
 }
 
 function getLevel(level) {
@@ -146,7 +140,6 @@ function hideTopUI() {
 }
 
 function levelWon() {
-  console.log("show overlay");
   document.querySelector("#notif").style.display = "block";
   document.querySelector("#playArea").replaceChildren();
   document.querySelector("#hand").replaceChildren();
@@ -189,7 +182,6 @@ function init() {
   discard.addEventListener("click", (event) => {
     if (currentDiscard > 0) {
       currentDiscard--;
-      console.log("discard pressed");
       clearPlayArea();
       document.querySelector("#numDiscards").innerHTML =
         "Discards: " + currentDiscard;
@@ -273,7 +265,6 @@ function getPokerHand() {
     cardContainer.push(standardFullDeck[card]);
   }
 
-  console.log(cardContainer);
   for (let card of cardContainer) {
     selectedRanks.push(card.rank);
     selectedSuits.push(card.suit);
@@ -299,8 +290,6 @@ function getPokerHand() {
       break;
   }
 
-  console.log("SELECTED RANKS");
-  console.log(selectedRanks);
   let hasStraight = checkStraight(selectedRanks);
   let hasFlush = checkFlush(selectedSuits);
   let hasTwoPair = checkTwoPair(selectedRanks);
@@ -331,7 +320,6 @@ function addCardScore() {
   let isFirstElement = true;
   for (let card of selectedCardsID) {
     cardsScore += standardFullDeck[card].value;
-    console.log(standardFullDeck[card].value);
     if (!isFirstElement) {
       document.querySelector("#individualCardScore").innerHTML += " + ";
     }
