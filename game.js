@@ -13,7 +13,7 @@ let runningScore = 0;
 let addedScore = 0;
 
 const scoreElements = [];
-const levels = [150, 350, 700];
+const levels = [200, 500, 900];
 
 let levelMinimumScore = 0;
 let currentLevel = 0;
@@ -91,6 +91,17 @@ function fillHand(cardsAlreadyInside) {
 function newGame() {
   currentLevel = 0;
   runningScore = 0;
+
+  plusScoreValue = 0;
+  plusMultValue = 0;
+  timesMultValue = 1;
+
+  document.querySelector("#plusScore").innerHTML =
+    "+" + plusScoreValue + " score";
+
+  document.querySelector("#plusMult").innerHTML = "+" + plusMultValue + " mult";
+
+  document.querySelector("#plusMult").innerHTML = "+" + plusMultValue + " mult";
   newLevel();
 }
 
@@ -222,7 +233,10 @@ function init() {
         "Currrent score: " + runningScore;
 
       levelWon();
-    } else if (currentLevel + 1 >= maxLevels) {
+    } else if (
+      runningScore >= levels[currentLevel] &&
+      currentLevel + 1 >= maxLevels
+    ) {
       //you win!
       gameWon();
     } else if (currentHand > 1) {
