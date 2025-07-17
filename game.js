@@ -13,7 +13,7 @@ let runningScore = 0;
 let addedScore = 0;
 
 const scoreElements = [];
-const levels = [150, 300, 600];
+const levels = [150, 350, 700];
 
 let levelMinimumScore = 0;
 let currentLevel = 0;
@@ -27,7 +27,7 @@ let plusMultValue = 0;
 let timesMultValue = 1;
 
 let gold = 0;
-const levelReward = 5;
+const levelReward = 4;
 
 const maxHands = 4;
 const maxDiscards = 4;
