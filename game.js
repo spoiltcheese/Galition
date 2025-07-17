@@ -113,6 +113,7 @@ function newLevel() {
   document.querySelector("#numHands").innerHTML = "Hands: " + currentHand;
   document.querySelector("#numDiscards").innerHTML =
     "Discards: " + currentDiscard;
+
   fillHand(0);
 }
 

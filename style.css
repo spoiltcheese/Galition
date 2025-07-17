@@ -2,6 +2,19 @@ body {
   font-family: Verdana, sans-serif;
   display: flex;
   flex-direction: column;
+  background-color: rgba(225, 225, 253, 0.558);
+}
+
+#scores {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+#limits {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
 }
 
 .container {
