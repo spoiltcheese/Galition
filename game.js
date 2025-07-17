@@ -88,6 +88,12 @@ function fillHand(cardsAlreadyInside) {
   }
 }
 
+function newGame() {
+  currentLevel = 0;
+  runningScore = 0;
+  newLevel();
+}
+
 function newLevel() {
   document.querySelector("#notif").style.display = "none";
   document.querySelector("#message").style.display = "none";
@@ -113,6 +119,11 @@ function newLevel() {
   document.querySelector("#numHands").innerHTML = "Hands: " + currentHand;
   document.querySelector("#numDiscards").innerHTML =
     "Discards: " + currentDiscard;
+
+  document.querySelector("#playArea").replaceChildren();
+  document.querySelector("#hand").replaceChildren();
+
+  document.querySelector("#runningScore").innerHTML = "Score: " + runningScore;
 
   fillHand(0);
 }
@@ -148,6 +159,11 @@ function levelWon() {
   gold += levelReward;
 
   document.querySelector("#gold").innerHTML = "Gold: " + gold;
+  document.querySelector("#endOfLevelTally").innerHTML =
+    "Score: " + runningScore + "/" + levels[currentLevel];
+
+  currentLevel++;
+  runningScore = 0;
 }
 
 function gameWon() {
@@ -176,6 +192,9 @@ function clearPlayArea() {
 }
 
 function init() {
+  newGameBtn.addEventListener("click", (event) => {
+    newGame();
+  });
   nextLevel.addEventListener("click", (event) => {
     newLevel();
   });
@@ -197,9 +216,6 @@ function init() {
       "Score: " + runningScore;
 
     if (runningScore >= levels[currentLevel] && currentLevel + 1 < maxLevels) {
-      currentLevel++;
-      runningScore = 0;
-
       getLevel(currentLevel);
 
       document.querySelector("#runningScore").innerHTML =

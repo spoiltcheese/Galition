@@ -32,6 +32,7 @@ body {
   border: 2px solid;
   width: 50%;
 
+  padding-top: 20px;
   padding-bottom: 20px;
 
   margin-inline: auto;
@@ -45,4 +46,8 @@ body {
 #upgrades {
   margin-inline: auto;
   padding-bottom: 20px;
+}
+
+#newGameBtn {
+  margin-top: 20px;
 }
