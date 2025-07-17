@@ -13,7 +13,7 @@ let runningScore = 0;
 let addedScore = 0;
 
 const scoreElements = [];
-const levels = [150, 250, 400];
+const levels = [150, 300, 600];
 
 let levelMinimumScore = 0;
 let currentLevel = 0;
